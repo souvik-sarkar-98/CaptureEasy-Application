@@ -7,6 +7,7 @@ import javax.swing.SwingUtilities;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
 
@@ -40,26 +41,33 @@ public class CaptureEasy implements App {
 		this.splash=new SplashScreenComponent();
 	}
 
-	public void init() throws ConfigurationException, IOException {
+	public void init() throws Exception {
 		splash.start();
-		splash.setMessage("Initializing default properties...");
-		PropertyUtil.init();
-		splash.setVersion(PropertyUtil.getAppVersion());
+		splash.setMessage("Initializing default configurations...");
+ 		Thread.sleep(500);
+		splash.setVersion(PropertyUtil.init().getAppVersion());
 	}
 
-	public void launch() throws NativeHookException, IOException {
+	public void launch() throws Exception {
 		log.info("** Launching GUI **");
 		splash.setMessage("Initializing user interface...");
+ 		Thread.sleep(500);
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				ControlWindow.init().registerActions().show();
+				try {
+					ControlWindow.init().registerActions().show();
+				} catch (Exception e) {
+					log.error("** Failed to Launch GUI **",e);
+				}
 			}
 		});
  		splash.setMessage("Initializing Native Key Listener");
-        //GlobalScreen.addNativeKeyListener(new KeypressListener());
+ 		Thread.sleep(500);
+       // GlobalScreen.addNativeKeyListener(new KeypressListener());
        // GlobalScreen.registerNativeHook();
  		splash.setMessage("Launching Application");
+ 		Thread.sleep(500);
 		splash.stop();
 	}
 
@@ -67,7 +75,7 @@ public class CaptureEasy implements App {
 		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
 			public void uncaughtException(Thread t, Throwable e) {
 		 		splash.setMessage(e.getClass().getSimpleName()+" : "+e.getMessage());
-		 		AlertPopup.init().type(AlertPopup.WARNING).message(e.getClass().getSimpleName()+" : "+e.getMessage()).button2("Okay");
+		 		AlertPopup.init().type(AlertPopup.ERROR).message(e.getClass().getSimpleName()+" : "+e.getMessage()).button2("Okay");
 				e.printStackTrace();
 			}
 		});

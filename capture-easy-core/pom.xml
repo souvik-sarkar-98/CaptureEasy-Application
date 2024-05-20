@@ -10,6 +10,9 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../</relativePath>
 	</parent>
+	<properties>
+	<pivot.version>2.0.2</pivot.version>
+</properties>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/com.1stleg/jnativehook -->
 		<dependency>
@@ -27,6 +30,31 @@
 			<artifactId>capture-easy-commons</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>io.github.sanyarnd</groupId>
+			<artifactId>app-locker</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+		<dependency>
+		<groupId>org.apache.pivot</groupId>
+		<artifactId>pivot-core</artifactId>
+		<version>${pivot.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.pivot</groupId>
+		<artifactId>pivot-wtk</artifactId>
+		<version>${pivot.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.pivot</groupId>
+		<artifactId>pivot-charts</artifactId>
+		<version>${pivot.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.pivot</groupId>
+		<artifactId>pivot-wtk-terra</artifactId>
+		<version>${pivot.version}</version>
+	</dependency>
 	</dependencies>
 
 	<build>

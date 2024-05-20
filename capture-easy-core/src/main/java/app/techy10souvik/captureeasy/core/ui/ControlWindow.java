@@ -28,6 +28,7 @@ import org.jnativehook.mouse.SwingMouseAdapter;
 import app.techy10souvik.captureeasy.common.ui.AlertPopup;
 import app.techy10souvik.captureeasy.common.util.PropertyUtil;
 import app.techy10souvik.captureeasy.core.apis.CaptureEvent;
+import app.techy10souvik.captureeasy.core.controller.ControlWindowController;
 import app.techy10souvik.captureeasy.core.services.CaptureService;
 
 /**
@@ -70,16 +71,17 @@ public class ControlWindow {
 	/**
 	 * @param splash
 	 * @return 
+	 * @throws Exception 
 	 * @throws IOException
 	 * @throws ConfigurationException
 	 * 
 	 */
 	
-	public ControlWindow()  {
+	public ControlWindow() throws Exception  {
 		initGUI();
 	}
 	
-	public static ControlWindow init()  {
+	public static ControlWindow init() throws Exception  {
 		return new ControlWindow();
 	}
 	
@@ -89,7 +91,7 @@ public class ControlWindow {
 		return frame;
 	}
 
-	private void initGUI()  {
+	private void initGUI() throws Exception  {
 		frame = new JFrame();
 		frame.setName("Control_Window");
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -107,7 +109,7 @@ public class ControlWindow {
 			e.printStackTrace();
 		}
 		
-		frame.setLocation(PropertyUtil.getGUILocation());
+		frame.setLocation(PropertyUtil.init().getGUILocation());
 		frame.setAlwaysOnTop(true);
 		frame.setBackground(new Color(0, 0, 0, 0));
 		frame.getContentPane().add(initMainPanel());
@@ -196,6 +198,7 @@ public class ControlWindow {
 		controlPanel.add(initViewButton());
 		controlPanel.add(initRecordingButton());
 		controlPanel.add(initSettingsButton());
+		controlPanel.setVisible(false);
 		return controlPanel;
 	}
 
@@ -385,21 +388,26 @@ public class ControlWindow {
 	 * @date 04-Jun-2022
 	 */
 	public ControlWindow registerActions() {
+		//ControlWindowController cs = new ControlWindowController();
+
 		menuButton.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent arg0) {
 				if (menuButton.isEnabled()) {
+
 					if (controlPanel.isVisible()) {
 						frame.setSize(new Dimension(54, 110));
 						mainPanel.setSize(new Dimension(54, 110));
 						controlPanel.setVisible(false);
 						menuButton.setToolTipText(
 								"<html>Click here to expand<br>OR Right click to explore Feature Menu</html>");
+
 					} else {
 						frame.setSize(new Dimension(54, 560));
 						mainPanel.setSize(new Dimension(54, 560));
 						controlPanel.setVisible(true);
 						menuButton.setToolTipText(
 								"<html>Click here to collapse<br>OR Right click to explore Feature Menu</html>");
+
 					}
 				}
 			}
@@ -459,6 +467,18 @@ public class ControlWindow {
 				}).button2("No");
 			}
 		});
+		
+		deleteButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(final ActionEvent e) {
+				AlertPopup.init().type(AlertPopup.WARNING).message("Are you sure that you want to delete all screenshots?").button1("Yes", new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						
+					}
+				}).button2("No");
+			}
+		});
 
 		viewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(final ActionEvent arg0) {
@@ -484,24 +504,23 @@ public class ControlWindow {
 
 			}
 		});
-		CaptureService cs = new CaptureService();
 
-		clickPad.addMouseListener(new SwingMouseAdapter() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void mouseClicked(MouseEvent mouseEvent) {
-				cs.captureScreenshot();
-			}
-		});
-		cs.addCaptureListener(new CaptureEvent() {
-			
-			@Override
-			public void updateCount(int count) {
-				label_Count.setText(""+count);
-				
-			}
-		});
+//		clickPad.addMouseListener(new SwingMouseAdapter() {
+//			private static final long serialVersionUID = 1L;
+//
+//			@Override
+//			public void mouseClicked(MouseEvent mouseEvent) {
+//				cs.captureScreenshot();
+//			}
+//		});
+//		cs.addCaptureListener(new CaptureEvent() {
+//			
+//			@Override
+//			public void updateCount(int count) {
+//				label_Count.setText(""+count);
+//				
+//			}
+//		});
 
 		return this;
 	}

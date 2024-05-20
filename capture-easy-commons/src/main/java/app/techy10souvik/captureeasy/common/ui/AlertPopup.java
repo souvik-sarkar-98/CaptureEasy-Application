@@ -277,6 +277,7 @@ public class AlertPopup extends JDialog {
 
 		messageBox = new JTextArea();
 		messageBox.setBounds(0, 0, 285, 100);
+		messageBox.setEditable(false);
 		messageBox.getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent e) {
 			}

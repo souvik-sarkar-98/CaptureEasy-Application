@@ -18,7 +18,6 @@ public class SettingsPanel {
 	 * @return
 	 */
 	public static SettingsPanel init(JFrame dialog) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -28,7 +27,6 @@ public class SettingsPanel {
 	 * @return
 	 */
 	public Component getPanel() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

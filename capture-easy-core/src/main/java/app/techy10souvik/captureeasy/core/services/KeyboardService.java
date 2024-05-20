@@ -37,13 +37,11 @@ public class KeyboardService implements NativeKeyListener  {
 	}
 
 	public void nativeKeyPressed(NativeKeyEvent nativeEvent) {
-		// TODO Auto-generated method stub
 //		cs.captureScreenshot();
 //		System.out.println("ok");
 	}
 
 	public void nativeKeyReleased(NativeKeyEvent nativeEvent) {
-		// TODO Auto-generated method stub
 		
 	}
 	

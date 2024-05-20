@@ -70,7 +70,14 @@ public class SystemUtil extends org.apache.commons.lang.SystemUtils {
 	}
 
 	
-
+	public static Path getTempPath() throws IOException {
+		Path path=Paths.get(getRootFolder(), "temp", String.valueOf(System.currentTimeMillis()));
+		if(!path.toFile().exists()) {
+			createFolder(path.toString());
+		}
+		return path;
+	}
+	
 	
 
 	public static Dimension getScreenSize() {
@@ -122,8 +129,6 @@ public class SystemUtil extends org.apache.commons.lang.SystemUtils {
         
     }
 	
-	
-	
 
 	public static String getLogFolder() {
 
@@ -133,10 +138,6 @@ public class SystemUtil extends org.apache.commons.lang.SystemUtils {
 		}
 		return logFolder.toString();
 	}
-
-	
-	
-
 	
 	
 	public static String getDocumentFolder()  {
@@ -151,7 +152,6 @@ public class SystemUtil extends org.apache.commons.lang.SystemUtils {
 		try {
 			ShellLinkHelper.createLink(target, shortcutPath);
 		} catch (IOException | ShellLinkException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -166,7 +166,6 @@ public class SystemUtil extends org.apache.commons.lang.SystemUtils {
 	 * @return
 	 */
 	public static int getScreenshotCount() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
